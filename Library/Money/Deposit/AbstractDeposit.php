@@ -1,11 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Library\Money\Deposit;
 
 use Library\Config\Config;
 use Library\Money\IOperations;
 use Library\Money\Operations;
-
 
 /**
  * Class AbstractDeposit
