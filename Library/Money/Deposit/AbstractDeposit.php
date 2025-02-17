@@ -24,6 +24,11 @@ abstract class AbstractDeposit implements IDepositFactory
     {
         $this->operations = new Operations();
     }
+
+    public function create(): AbstractDeposit
+    {
+        return new static;
+    }
     
     public function getAmounts(): array
     {
