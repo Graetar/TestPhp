@@ -20,7 +20,7 @@ final class Operations implements IOperationsFactory
 
     public function create(): Operations
     {
-        return new static;
+        return new self;
     }
     
     public function addAmount(
