@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Library\Money;
 
 use Library\Money\ExchangeRate;
 use PHPUnit\Framework\TestCase;
-
 
 /**
  * Class ExchangeRateTest
@@ -18,7 +19,8 @@ final class ExchangeRateTest extends TestCase
         string $currencyTo,
         ?int $precision,
         float $expected
-    ) {
+    )
+    {
         $exhangeRate = $this->createMock(ExchangeRate::class);
 
         $this->assertSame($exhangeRate->convert($amount, $currencyFrom, $currencyTo, $precision), $expected);
@@ -30,10 +32,7 @@ final class ExchangeRateTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $exhangeRate->getRate(30.00, 'XYZ', 'YZX');
     }
-
-    /**
-     * @return array
-     */
+    
     public function convertProvider(): array
     {
         return [
@@ -44,10 +43,6 @@ final class ExchangeRateTest extends TestCase
     }
 
     /**
-     * @param string $currencyFrom
-     * @param string $currencyTo
-     * @param float $expected
-     *
      * @dataProvider getRateProvider
      */
     public function testGetRate(string $currencyFrom, string $currencyTo, float $expected)
@@ -63,10 +58,7 @@ final class ExchangeRateTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $exhangeRate->getRate('XYZ', 'YZX');
     }
-
-    /**
-     * @return array
-     */
+    
     public function getRateProvider(): array
     {
         return [
@@ -76,10 +68,6 @@ final class ExchangeRateTest extends TestCase
     }
 
     /**
-     * @param float $amount
-     * @param int|null $precision
-     * @param float $expected
-     *
      * @dataProvider roundAmountProvider
      */
     public function testRoundAmount(float $amount, ?int $precision, float $expected)
@@ -87,10 +75,7 @@ final class ExchangeRateTest extends TestCase
         $exhangeRate = $this->createMock(ExchangeRate::class);
         $this->assertSame($exhangeRate->roundAmount($amount, $precision), $expected);
     }
-
-    /**
-     * @return array
-     */
+    
     public function roundAmountProvider(): array
     {
         return [
