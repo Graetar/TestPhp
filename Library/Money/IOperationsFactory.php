@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Library\Money;
 
 /**
- * Interface IOperations
+ * Interface IOperationsFactory
  * @package Library\Money
  */
 interface IOperationsFactory
