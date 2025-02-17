@@ -15,10 +15,9 @@ use Library\Money\Operations;
 abstract class AbstractDeposit implements IDepositFactory
 {
 
-    protected $amounts = [];
+    protected array $amounts = [];
 
-    /** @var Operations */
-    protected $operations;
+    protected Operations $operations;
 
     public function __construct()
     {
