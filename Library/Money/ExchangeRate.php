@@ -1,20 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Library\Money;
 
 use Library\Config\Config;
-
 
 /**
  * Class ExchangeRate
  * @package Library\Money
  */
-final class ExchangeRate implements IExchangeRate
+final class ExchangeRate implements IExchangeRateFactory
 {
 
-    /**
-     * @inheritDoc
-     */
+    public function create(): ExchangeRate
+    {
+        return new static;
+    }
+    
     public function convert(float $amount, string $currencyFrom, string $currencyTo, ?int $precision): float
     {
         if ($currencyFrom === $currencyTo) {
@@ -23,10 +26,7 @@ final class ExchangeRate implements IExchangeRate
 
         return $this->roundAmount($amount * $this->getRate($currencyFrom, $currencyTo), $precision);
     }
-
-    /**
-     * @inheritDoc
-     */
+    
     public function getRate(string $currencyFrom, string $currencyTo): float
     {
         $exhangeRates = Config::EXCHANGE_RATES;
@@ -36,10 +36,7 @@ final class ExchangeRate implements IExchangeRate
 
         return $exhangeRates[$currencyFrom][$currencyTo];
     }
-
-    /**
-     * @inheritDoc
-     */
+    
     public function roundAmount(float $amount, ?int $precision): float
     {
         $precision = $precision ?? Config::DEFAULT_PRECISION;
