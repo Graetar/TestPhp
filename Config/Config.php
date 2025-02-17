@@ -1,7 +1,8 @@
 <?php
 
-namespace Library\Config;
+declare(strict_types=1);
 
+namespace Library\Config;
 
 /**
  * Class Config
@@ -15,16 +16,16 @@ class Config
 
     public const EXCHANGE_RATES = [
         'CZK' => [
-            'EUR' => 0.038,
+            'EUR' => 0.040,
             'USD' => 0.042,
         ],
         'EUR' => [
-            'CZK' => 26.00,
-            'USD' => 1.08,
+            'CZK' => 25.04,
+            'USD' => 1.05,
         ],
         'USD' => [
-            'CZK' => 24.00,
-            'EUR' => 0.92,
+            'CZK' => 23.87,
+            'EUR' => 0.95,
         ],
     ];
 }
