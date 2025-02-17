@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Library\Money\Deposit;
 
 use Library\Money\IOperations;
-
 
 /**
  * Interface IDeposit
