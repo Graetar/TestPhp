@@ -1,7 +1,8 @@
 <?php
 
-namespace Library\Money\Deposit;
+declare(strict_types=1);
 
+namespace Library\Money\Deposit;
 
 /**
  * Class Wallet
@@ -9,10 +10,7 @@ namespace Library\Money\Deposit;
  */
 final class Wallet extends AbstractDeposit
 {
-
-    /**
-     * @inheritDoc
-     */
+    
     public function getDepositName(): string
     {
         return 'WALLET';
