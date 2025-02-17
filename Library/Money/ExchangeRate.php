@@ -15,7 +15,7 @@ final class ExchangeRate implements IExchangeRateFactory
 
     public function create(): ExchangeRate
     {
-        return new static;
+        return new self;
     }
     
     public function convert(float $amount, string $currencyFrom, string $currencyTo, ?int $precision): float
