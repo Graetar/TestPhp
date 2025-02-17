@@ -5,62 +5,46 @@ declare(strict_types=1);
 namespace Library\Money\Deposit;
 
 use Library\Config\Config;
-use Library\Money\IOperations;
+use Library\Money\IOperationsFactory;
 use Library\Money\Operations;
 
 /**
  * Class AbstractDeposit
  * @package Library\Money\Deposit
  */
-abstract class AbstractDeposit implements IDeposit
+abstract class AbstractDeposit implements IDepositFactory
 {
 
-    /** @var array */
     protected $amounts = [];
 
-    /** @var IOperations */
+    /** @var Operations */
     protected $operations;
 
     public function __construct()
     {
         $this->operations = new Operations();
     }
-
-    /**
-     * @return array
-     */
+    
     public function getAmounts(): array
     {
         return $this->amounts;
     }
-
-    /**
-     * @param array $amounts
-     */
+    
     public function setAmounts(array $amounts): void
     {
         $this->amounts = $amounts;
     }
-
-    /**
-     * @inheritDoc
-     */
-    public function getOperations(): IOperations
+    
+    public function getOperations(): Operations
     {
         return $this->operations;
     }
-
-    /**
-     * @inheritDoc
-     */
-    public function setOperations(IOperations $operations): void
+    
+    public function setOperations(Operations $operations): void
     {
         $this->operations = $operations;
     }
-
-    /**
-     * @inheritDoc
-     */
+    
     public function getTotalAmountInCurrency(string $outputCurrency, ?array $currencies, ?int $precision): float
     {
         $totalAmount = Config::EMPTY_AMOUNT;
@@ -77,18 +61,12 @@ abstract class AbstractDeposit implements IDeposit
 
         return $totalAmount;
     }
-
-    /**
-     * @inheritDoc
-     */
+    
     public function getTotalAmounts(?array $currencies): string
     {
         return json_encode($this->getTotalAmountsByCurrencies($currencies, null));
     }
-
-    /**
-     * @inheritDoc
-     */
+    
     protected function getTotalAmountsByCurrencies(?array $currencies, ?int $precision): array
     {
         if (empty($currencies)) {
@@ -104,18 +82,12 @@ abstract class AbstractDeposit implements IDeposit
 
         return $amounts;
     }
-
-    /**
-     * @inheritDoc
-     */
+    
     public function getAmountByCurrency(string $currency, ?int $precision): float
     {
         return $this->operations->roundAmount($this->amounts[$currency] ?? Config::EMPTY_AMOUNT, $precision);
     }
-
-    /**
-     * @inheritDoc
-     */
+    
     public function addAmount(float $amount, string $currency, string $addedAmountCurrency): void
     {
         $this->amounts[$addedAmountCurrency] = $this->operations->addAmount(
@@ -127,10 +99,7 @@ abstract class AbstractDeposit implements IDeposit
             null
         );
     }
-
-    /**
-     * @inheritDoc
-     */
+    
     public function substractAmount(float $amount, string $currency, string $substractedAmountCurrency): void
     {
         $this->amounts[$substractedAmountCurrency] = $this->operations->substractAmount(
@@ -142,19 +111,13 @@ abstract class AbstractDeposit implements IDeposit
             null
         );
     }
-
-    /**
-     * @inheritDoc
-     */
+    
     public function exchangeAmount(float $amount, string $currencyFrom, string $currencyTo): void
     {
         $convertedAmount = $this->operations->exchangeAmount($amount, $currencyFrom, $currencyTo, null);
         $this->substractAmount($amount, $currencyFrom, $currencyFrom);
         $this->addAmount($convertedAmount, $currencyTo, $currencyTo);
     }
-
-    /**
-     * @inheritDoc
-     */
+    
     abstract public function getDepositName(): string;
 }
