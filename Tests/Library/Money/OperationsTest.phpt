@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Library\Money;
 
 use Library\Money\Operations;
 use PHPUnit\Framework\TestCase;
-
 
 /**
  * Class OperationsTest
@@ -14,14 +15,6 @@ final class OperationsTest extends TestCase
 {
 
     /**
-     * @param float $amount1
-     * @param string $currency1
-     * @param float $amount2
-     * @param string $currency2
-     * @param string $outputCurrency
-     * @param int|null $precision
-     * @param float $expected
-     *
      * @dataProvider addAmountProvider
      */
     public function testAddAmount(
@@ -32,7 +25,8 @@ final class OperationsTest extends TestCase
         string $outputCurrency,
         ?int $precision,
         $expected
-    ) {
+    )
+    {
         $operations = $this->createMock(Operations::class);
 
         $this->assertSame(
@@ -49,10 +43,7 @@ final class OperationsTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $operations->addAmount(100.00, 'XYZ', 20.00, 'ZXY', 'YZX');
     }
-
-    /**
-     * @return array
-     */
+    
     public function addAmountProvider(): array
     {
         return [
@@ -63,14 +54,6 @@ final class OperationsTest extends TestCase
     }
 
     /**
-     * @param float $minuendAmount
-     * @param string $minuendCurrency
-     * @param float $subtrahendAmount
-     * @param string $subtrahendCurrency
-     * @param string $outputCurrency
-     * @param int|null $precision
-     * @param float $expected
-     *
      * @dataProvider substractAmountProvider
      */
     public function testSubstractAmount(
@@ -81,7 +64,8 @@ final class OperationsTest extends TestCase
         string $outputCurrency,
         ?int $precision,
         $expected
-    ) {
+    )
+    {
         $operations = $this->createMock(Operations::class);
 
         $this->assertSame(
@@ -105,10 +89,7 @@ final class OperationsTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $operations->substractAmount(100.00, 'XYZ', 20.00, 'ZXY', 'YZX');
     }
-
-    /**
-     * @return array
-     */
+    
     public function substractAmountProvider(): array
     {
         return [
@@ -119,13 +100,6 @@ final class OperationsTest extends TestCase
     }
 
     /**
-     * @param float $amount
-     * @param string $currency
-     * @param int $multiplier
-     * @param string $outputCurrency
-     * @param int|null $precision
-     * @param float $expected
-     *
      * @dataProvider multiplyAmountProvider
      */
     public function testMultiplyAmount(
@@ -135,7 +109,8 @@ final class OperationsTest extends TestCase
         string $outputCurrency,
         ?int $precision,
         float $expected
-    ) {
+    )
+    {
         $operations = $this->createMock(Operations::class);
 
         $this->assertSame(
@@ -150,10 +125,7 @@ final class OperationsTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $operations->multiplyAmount(100.00, 'XYZ', 5, 'YZX');
     }
-
-    /**
-     * @return array
-     */
+    
     public function multiplyAmountProvider(): array
     {
         return [
@@ -164,13 +136,6 @@ final class OperationsTest extends TestCase
     }
 
     /**
-     * @param float $amount
-     * @param string $currency
-     * @param int $divisor
-     * @param string $outputCurrency
-     * @param int|null $precision
-     * @param array $expected
-     *
      * @dataProvider divideAmountProvider
      */
     public function testDivideAmount(
@@ -180,7 +145,8 @@ final class OperationsTest extends TestCase
         string $outputCurrency,
         ?int $precision,
         array $expected
-    ) {
+    )
+    {
         $operations = $this->createMock(Operations::class);
 
         $this->assertSame(
@@ -197,10 +163,7 @@ final class OperationsTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $operations->divideAmount(100.00, 'USD', 0, 'EUR');
     }
-
-    /**
-     * @return array
-     */
+    
     public function divideAmountProvider(): array
     {
         return [
@@ -211,14 +174,6 @@ final class OperationsTest extends TestCase
     }
 
     /**
-     * @param float $amount1
-     * @param string $currency1
-     * @param float $amount2
-     * @param string $currency2
-     * @param string $outputCurrency
-     * @param int|null $precision
-     * @param array $expected
-     *
      * @dataProvider compareAmountsProvider
      */
     public function testCompareAmounts(
@@ -229,7 +184,8 @@ final class OperationsTest extends TestCase
         string $outputCurrency,
         ?int $precision,
         array $expected
-    ) {
+    )
+    {
         $operations = $this->createMock(Operations::class);
 
         $this->assertSame(
@@ -246,10 +202,7 @@ final class OperationsTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $operations->compareAmounts(100.00, 'XYZ', 20.00, 'ZXY', 'YZX');
     }
-
-    /**
-     * @return array
-     */
+    
     public function compareAmountsProvider(): array
     {
         return [
@@ -260,12 +213,6 @@ final class OperationsTest extends TestCase
     }
 
     /**
-     * @param float $amount
-     * @param string $currencyFrom
-     * @param string $currencyTo
-     * @param int|null $precision
-     * @param array $expected
-     *
      * @dataProvider exchangeAmountProvider
      */
     public function testExchangeAmount(
@@ -274,7 +221,8 @@ final class OperationsTest extends TestCase
         string $currencyTo,
         ?int $precision,
         array $expected
-    ) {
+    )
+    {
         $operations = $this->createMock(Operations::class);
 
         $this->assertSame($operations->exchangeAmount($amount, $currencyFrom, $currencyTo, $precision), $expected);
@@ -286,10 +234,7 @@ final class OperationsTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $operations->exchangeAmount(30.00, 'XYZ', 'YZX');
     }
-
-    /**
-     * @return array
-     */
+    
     public function exchangeAmountProvider(): array
     {
         return [
@@ -299,10 +244,6 @@ final class OperationsTest extends TestCase
     }
 
     /**
-     * @param float $amount
-     * @param int|null $precision
-     * @param float $expected
-     *
      * @dataProvider roundAmountProvider
      */
     public function testRoundAmount(float $amount, ?int $precision, float $expected)
@@ -310,10 +251,7 @@ final class OperationsTest extends TestCase
         $operations = $this->createMock(Operations::class);
         $this->assertSame($operations->roundAmount($amount, $precision), $expected);
     }
-
-    /**
-     * @return array
-     */
+    
     public function roundAmountProvider(): array
     {
         return [
