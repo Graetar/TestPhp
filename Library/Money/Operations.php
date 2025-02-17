@@ -8,14 +8,19 @@ namespace Library\Money;
  * Class Operations
  * @package Library\Money
  */
-final class Operations implements IOperations
+final class Operations implements IOperationsFactory
 {
 
-    protected IExchangeRate $exchangeRate;
+    private IExchangeRate $exchangeRate;
 
     public function __construct()
     {
         $this->exchangeRate = new ExchangeRate();
+    }
+
+    public function create(): Operations
+    {
+        return new static;
     }
     
     public function addAmount(
