@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Library\Money\Deposit;
 
 use Library\Money\Deposit\Wallet;
