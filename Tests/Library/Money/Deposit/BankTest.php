@@ -5,7 +5,6 @@ namespace Tests\Library\Money\Deposit;
 use Library\Money\Deposit\Bank;
 use PHPUnit\Framework\TestCase;
 
-
 /**
  * Class BankTest
  * @package Tests\Library\Money\Deposit
@@ -13,11 +12,6 @@ use PHPUnit\Framework\TestCase;
 final class BankTest extends TestCase
 {
     /**
-     * @param string $outputCurrency
-     * @param array|null $currencies
-     * @param int|null $precision
-     * @param float $expected
-     *
      * @dataProvider getTotalAmountInCurrencyProvider
      */
     public function testGetTotalAmountInCurrency(
@@ -25,7 +19,8 @@ final class BankTest extends TestCase
         ?array $currencies,
         ?int $precision,
         float $expected
-    ) {
+    )
+    {
         $bank = $this->getBankMock();
 
         $this->assertSame($bank->getTotalAmountInCurrency($outputCurrency, $currencies, $precision), $expected);
@@ -49,9 +44,6 @@ final class BankTest extends TestCase
     }
 
     /**
-     * @param array|null $currencies
-     * @param float $expected
-     *
      * @dataProvider getTotalAmountsProvider
      */
     public function testGetTotalAmounts(?array $currencies, float $expected)
@@ -59,10 +51,7 @@ final class BankTest extends TestCase
         $bank = $this->getBankMock();
         $this->assertSame($bank->getTotalAmounts($currencies), $expected);
     }
-
-    /**
-     * @return array
-     */
+    
     public function getTotalAmountsProvider(): array
     {
         return [
@@ -73,10 +62,6 @@ final class BankTest extends TestCase
     }
 
     /**
-     * @param string $currency
-     * @param int|null $precision
-     * @param float $expected
-     *
      * @dataProvider getAmountByCurrencyProvider
      */
     public function testGetAmountByCurrency(string $currency, ?int $precision, float $expected)
@@ -84,10 +69,7 @@ final class BankTest extends TestCase
         $bank = $this->getBankMock();
         $this->assertSame($bank->getAmountByCurrency($currency, $precision), $expected);
     }
-
-    /**
-     * @return array
-     */
+    
     public function getAmountByCurrencyProvider(): array
     {
         return [
@@ -100,11 +82,6 @@ final class BankTest extends TestCase
     }
 
     /**
-     * @param float $amount
-     * @param string $currency
-     * @param string $addedAmountCurrency
-     * @param array $expected
-     *
      * @dataProvider addAmountProvider
      */
     public function testAddAmount(float $amount, string $currency, string $addedAmountCurrency, array $expected)
@@ -121,10 +98,7 @@ final class BankTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $bank->addAmount(30000.00, 'XYZ', 'YZX');
     }
-
-    /**
-     * @return array
-     */
+    
     public function addAmountProvider(): array
     {
         return [
@@ -135,11 +109,6 @@ final class BankTest extends TestCase
     }
 
     /**
-     * @param float $amount
-     * @param string $currency
-     * @param string $substractedAmountCurrency
-     * @param array $expected
-     *
      * @dataProvider substractAmountProvider
      */
     public function testSubstractAmount(
@@ -147,7 +116,8 @@ final class BankTest extends TestCase
         string $currency,
         string $substractedAmountCurrency,
         array $expected
-    ) {
+    )
+    {
         $bank = $this->getBankMock();
 
         $bank->addAmount($amount, $currency, $substractedAmountCurrency);
@@ -160,10 +130,7 @@ final class BankTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $bank->substractAmount(30000.00, 'XYZ', 'YZX');
     }
-
-    /**
-     * @return array
-     */
+    
     public function substractAmountProvider(): array
     {
         return [
@@ -174,11 +141,6 @@ final class BankTest extends TestCase
     }
 
     /**
-     * @param float $amount
-     * @param string $currencyFrom
-     * @param string $currencyTo
-     * @param array $expected
-     *
      * @dataProvider exchangeAmountProvider
      */
     public function testExchangeAmount(float $amount, string $currencyFrom, string $currencyTo, array $expected)
@@ -195,10 +157,7 @@ final class BankTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $bank->exchangeAmount(30000.00, 'XYZ', 'YZX');
     }
-
-    /**
-     * @return array
-     */
+    
     public function exchangeAmountProvider(): array
     {
         return [
