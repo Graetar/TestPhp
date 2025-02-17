@@ -1,7 +1,8 @@
 <?php
 
-namespace Library\Money\Deposit;
+declare(strict_types=1);
 
+namespace Library\Money\Deposit;
 
 /**
  * Class Bank
