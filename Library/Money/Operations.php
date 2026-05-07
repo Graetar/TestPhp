@@ -23,19 +23,17 @@ final class Operations implements IOperationsFactory
         return new self;
     }
     
-    public function addAmount(
-        float $amount1,
-        string $currency1,
-        float $amount2,
-        string $currency2,
-        string $outputCurrency,
-        ?int $precision
-    ): float
+    public function add(
+        Money $amount1,
+        Money $amount2,
+        string $targetCurrency,
+        ?int $scale = 2
+    ): Money
     {
-        $convertedAmount1 = $this->exchangeRate->convert($amount1, $currency1, $outputCurrency, $precision);
-        $convertedAmount2 = $this->exchangeRate->convert($amount2, $currency2, $outputCurrency, $precision);
+        $convertedAmount1 = $this->exchangeRate->convert($amount1->minorAmount, $amount1->currency, $targetCurrency);
+        $convertedAmount2 = $this->exchangeRate->convert($amount2->minorAmount, $amount2->currency, $targetCurrency);
 
-        return $convertedAmount1 + $convertedAmount2;
+        return Money::fromMajor($convertedAmount1 + $convertedAmount2, $targetCurrency, $scale);
     }
     
     public function substractAmount(
