@@ -7,3 +7,4 @@ TODO:
 - Refactor ExchangeRate -> ExchangeRateProvider s getRate(from, to) metodou - jeden provider pro jednu banku + kurz.
 - Vylepšit Bank/Wallet tak, aby dávaly smysl v rámci obecného Depositu.
 - Doladit validace a testy (dělení nulou apod.).
+- Přidat konfigurace pro Docker, Composer, CL/CI, pohrát si s AGENTS.md.
